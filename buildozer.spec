@@ -1,13 +1,13 @@
 [app]
 
 # (str) Title of your application
-title = My Application
+title = Stock Tracker
 
 # (str) Package name
-package.name = myapp
+package.name = stockTracker
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.test
+package.domain = org.parthikb
 
 # (str) Source code where the main.py live
 source.dir = .
@@ -36,7 +36,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy
+requirements = python3,kivy,yfinance,pandas,numpy,docutils,pygments,requests,python-dateutil,urllib3,chardet,idna,six,docutils,pytz,multitasking
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes

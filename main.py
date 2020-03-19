@@ -10,6 +10,15 @@ from kivy.uix.button import Button
 import os
 from datetime import datetime
 
+from kivy.graphics import Color, Rectangle
+
+
+# def update_rect(instance, value):
+#     instance.rect.pos = instance.pos
+#     instance.rect.size = instance.size
+   
+# self.bind(pos=update_rect, size=update_rect)
+
 kivy.require('1.11.1')
 
 print('Fetching Details...')
@@ -34,69 +43,52 @@ class HomePage(GridLayout):
 		# 	buy_price       = ''
 
 
-
-		# self.add_widget(Label(text='Total Shares :'))
-		# self.total_shares = TextInput(text=total_shares, multiline=False)
-		# self.add_widget(self.total_shares)
-
-		# self.add_widget(Label(text='Buy Price :'))
-		# self.buy_price = TextInput(text=buy_price, multiline=False)
-		# self.add_widget(self.buy_price)
-
 		# self.add_widget(Label()) # Empty label to move the Button toward right
 		# self.submit = Button(text='Submit!')
 		# self.submit.bind(on_press=self.submit_button) # Button Action
 
 		# self.add_widget(self.submit)
 
-
-		self.add_widget(Label(text='Net Change : '))
+		self.info = Label(text='Net Change : ')
+		self.add_widget(self.info)
 		self.net = Label()
+		self._ = Label()
+		self.time = Label()
 		self.add_widget(self.net)
+		self.add_widget(self._)	
+		self.add_widget(self.time)
+
+		# with self.info.text:
+		#     Color(0, 1, 0)
 
 
 	def update(self):
-		stock = yf.Ticker('YESBANK.NS')
-		cur_price = stock.history('max')["Close"][-1]
+		stock 		   = yf.Ticker('YESBANK.NS')
+		cur_price 	   = stock.history('max')["Close"][-1]
 
-		cur_time = datetime.now().strftime('%H : %M : %S')
+		cur_time       = datetime.now().strftime('%H : %M : %S')
 
-		total_shares   = 150
-		buy_price      = 29
+		total_shares   = [71, 26]
+		buy_price      = [27, 35]
 
-		invested = total_shares*buy_price
-		cur_amount = total_shares*cur_price
-		balance = cur_amount - invested
+		invested       = sum([x*y for x, y in zip(total_shares, buy_price)])
+		cur_amount     = sum(total_shares)*cur_price
+		balance        = round(cur_amount - invested, 2)
 
-		emotion = 'PROFIT' if balance > 0 else 'LOSS'
+		emotion        = 'PROFIT' if balance > 0 else 'LOSS'
 		
-		self.net.text = str(f'''Rs.{balance} | {emotion}
+		self.net.text  = str(f'Rs. {balance}')
+		self.time.text =\
+str(f'''
 -------------------------
 Last Updated : {cur_time}''')
+
+		self.net.color=[0, 1, 0, 1] if emotion == 'PROFIT' else [1, 0, 0, 1]
+
 
 
 	def on_touch_up(self, touch):
 		self.update()
-		# total_shares   = int(self.total_shares.text)
-		# buy_price      = int(self.buy_price.text)
-		# # username = self.username.text
-
-		# invested = total_shares*buy_price
-		# cur_amount = total_shares*cur_price
-		# balance = cur_amount - invested
-
-		# net = 'PROFIT' if balance > 0 else 'LOSS'
-
-		# print(f'Total Shares : {total_shares}')
-		# print(f'Buy Price    : Rs.{buy_price}')
-		# print(f'Current Price: Rs.{cur_price}')
-		# print('------------------------------')
-		# print(f'Investment   : Rs.{invested}')
-		# print(f'Balance      : Rs.{balance}')
-		# print(f'Net          : {net}')
-
-		# print(port, ip, username)
-
 		#### IMPORTANT
 		# Saving the details for future use
 		# with open('prev_details.txt', 'w') as f:
