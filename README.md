@@ -1,1 +1,4 @@
-Just an Android App created for personal use to track my Stocks.
+# Stock Tracker App
+
+Info : <a href='https://github.com/ParthikB/stock-tracker-family'>Idhar milegi</a>
+
